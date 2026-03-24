@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>사계절나무병원</title>
+    <style>
+        /* [1] 기본 초기화 설정 */
+        body { margin: 0; font-family: 'Malgun Gothic', '맑은 고딕', sans-serif; color: #333; }
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; padding: 0; margin: 0; }
+
+        /* [2] 상단 메뉴바 (Header) */
+        header { 
+            display: flex; justify-content: space-between; align-items: center; 
+            padding: 20px 50px; border-bottom: 1px solid #ddd; background-color: #fff; 
+        }
+        .logo { font-size: 24px; font-weight: bold; color: #2E7D32; } /* 초록색 포인트 컬러 */
+        .nav-menu { display: flex; gap: 40px; }
+        .nav-menu li a { font-weight: bold; font-size: 16px; }
+        .nav-menu li a:hover { color: #2E7D32; }
+
+        /* [3] 메인 배너 (Hero Section) - 숲 배경 */
+        .hero {
+            /* 임시 배경 이미지(숲)를 불러옵니다 */
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://images.unsplash.com/photo-1448375240586-882707db888b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80') no-repeat center center/cover;
+            height: 450px;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            color: white; text-align: center;
+        }
+        .hero h1 { font-size: 42px; margin-bottom: 15px; }
+        .hero p { font-size: 20px; font-weight: 300; }
+
+        /* [4] 주요 진료 안내 (바둑판형 버튼) */
+        .services { padding: 80px 50px; text-align: center; background-color: #f8f9fa; }
+        .section-title { font-size: 28px; margin-bottom: 50px; color: #222; }
+        .service-grid { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; }
+        .service-box {
+            background: #fff; border: 1px solid #eaeaea; border-radius: 8px;
+            padding: 40px 20px; width: 220px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+        .service-box:hover { transform: translateY(-10px); border-color: #2E7D32; }
+        .service-box h3 { font-size: 20px; color: #2E7D32; margin-bottom: 15px; }
+        .service-box p { font-size: 15px; color: #666; line-height: 1.5; }
+
+        /* [5] 최근 치료 사례 (블로그 스타일 갤러리) */
+        .recent-cases { padding: 80px 50px; text-align: center; }
+        .case-grid { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; }
+        .case-item { width: 300px; text-align: left; }
+        /* 임시 회색 배경, 나중에 실제 사진으로 교체 */
+        .case-img { width: 100%; height: 200px; background-color: #ddd; border-radius: 8px; margin-bottom: 15px; object-fit: cover; }
+        .case-title { font-weight: bold; font-size: 18px; margin-bottom: 8px; display: block;}
+        .case-title:hover { text-decoration: underline; }
+        .case-date { font-size: 14px; color: #888; }
+
+        /* [6] 하단 정보 (Footer) */
+        footer { background-color: #2b2b2b; color: #aaa; padding: 40px 50px; text-align: center; font-size: 14px; line-height: 1.6; }
+        footer span { margin: 0 10px; color: #555; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">사계절나무병원</div>
+        <ul class="nav-menu">
+            <li><a href="#about">병원소개</a></li>
+            <li><a href="#services">진료안내</a></li>
+            <li><a href="#cases">치료사례</a></li>
+            <li><a href="#contact">오시는길</a></li>
+        </ul>
+    </header>
+
+    <section class="hero">
+        <h1>나무의 아픔을 치유합니다</h1>
+        <p>정확한 진단과 올바른 처방, 사계절나무병원이 함께합니다.</p>
+    </section>
+
+    <section id="services" class="services">
+        <h2 class="section-title">주요 진료 안내</h2>
+        <div class="service-grid">
+            <div class="service-box">
+                <h3>수목 진단</h3>
+                <p>정밀한 기기를 통한<br>정확한 상태 파악</p>
+            </div>
+            <div class="service-box">
+                <h3>병해충 방제</h3>
+                <p>수목 상태에 따른<br>맞춤형 약제 처방 및 치료</p>
+            </div>
+            <div class="service-box">
+                <h3>수목 외과수술</h3>
+                <p>부패부 제거 및 살균,<br>인공수피 처리</p>
+            </div>
+            <div class="service-box">
+                <h3>보호수 관리</h3>
+                <p>역사적 가치가 있는<br>노거수 및 보호수 특별 관리</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="cases" class="recent-cases">
+        <h2 class="section-title">최근 치료 사례</h2>
+        <div class="case-grid">
+            <div class="case-item">
+                <img src="https://via.placeholder.com/300x200?text=Tree+Care+1" class="case-img" alt="치료사례1">
+                <a href="https://blog.naver.com/4seasons-treehp" class="case-title" target="_blank">소나무 재선충병 예방주사 시공</a>
+                <div class="case-date">2026.03.20</div>
+            </div>
+            <div class="case-item">
+                <img src="https://via.placeholder.com/300x200?text=Tree+Care+2" class="case-img" alt="치료사례2">
+                <a href="https://blog.naver.com/4seasons-treehp" class="case-title" target="_blank">보호수 느티나무 외과수술</a>
+                <div class="case-date">2026.03.15</div>
+            </div>
+            <div class="case-item">
+                <img src="https://via.placeholder.com/300x200?text=Tree+Care+3" class="case-img" alt="치료사례3">
+                <a href="https://blog.naver.com/4seasons-treehp" class="case-title" target="_blank">아파트 단지 조경수 수형 조절</a>
+                <div class="case-date">2026.03.10</div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <p>
+            사계절나무병원 <span>|</span> 대표원장 : OOO <span>|</span> 사업자등록번호 : 000-00-00000<br>
+            경기도 화성시 [상세 주소 입력] <span>|</span> 대표전화 : 031-000-0000 <span>|</span> 이메일 : example@naver.com
+        </p>
+        <p style="margin-top: 15px; font-size: 12px;">&copy; 2026 4Seasons Tree Hospital. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>

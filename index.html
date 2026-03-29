@@ -1,254 +1,1036 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>자연과 사람의 건강한 동행 - 사계절 나무병원</title>
+    <title>사계절나무병원 - 자연과 사람의 건강한 동행</title>
     <link rel="icon" href="images/favicon.png" type="image/png">
     <style>
-        /* [2] 기본 초기화 및 스타일 설정 */
-        body { margin: 0; font-family: 'Malgun Gothic', '맑은 고딕', sans-serif; color: #333; background-color: #f8f9fa; scroll-behavior: smooth; }
-        a { text-decoration: none; color: inherit; }
-        ul { list-style: none; padding: 0; margin: 0; }
-        h1, h2, h3 { color: #222; }
+        @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
 
-        /* [3] 상단 메뉴바 (Header) */
-        header { 
-            display: flex; justify-content: space-between; align-items: center; 
-            padding: 15px 50px; border-bottom: 1px solid #ddd; background-color: #fff; 
-            position: fixed; width: calc(100% - 100px); top: 0; z-index: 1000;
+        /* [기본 설정] */
+        body {
+            margin: 0;
+            font-family: 'Pretendard', sans-serif;
+            color: #333;
+            background-color: #f8f9fa;
+            scroll-behavior: smooth;
+            padding-top: 100px;
         }
-        .header-logo { display: flex; align-items: center; gap: 10px; font-size: 24px; font-weight: bold; color: #2E7D32; }
-        .header-logo img { width: 35px; height: 35px; } /* [4] 로고 옆 아이콘 배치 */
-        .nav-menu { display: flex; gap: 40px; }
-        .nav-menu li a { font-weight: bold; font-size: 16px; }
-        .nav-menu li a:hover { color: #2E7D32; }
 
-        /* [5] 메인 배너 (Hero Section) - treehospital.or.kr처럼 동작하게 */
-        /* 세 개의 이미지가 전환되는 CSS 슬라이더를 구현합니다. */
+        a {
+            text-decoration: none;
+            color: inherit;
+            outline: none;
+        }
+
+        a:hover,
+        a:active,
+        a:focus {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        h1,
+        h2,
+        h3,
+        p {
+            margin: 0;
+        }
+
+        /* [중앙 정렬 레이아웃 (양옆 여백 만들기)] */
+        .inner {
+            max-width: 1500px;
+            margin: 0 auto;
+            padding: 0 20px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        /* [상단 메뉴바] */
+        header {
+            background-color: #fff;
+            border-bottom: 1px solid #ddd;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        header .inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 100px;
+        }
+
+        header.sticky-header {
+            background-color: #000;
+            border-bottom: none;
+            color: #fff;
+        }
+
+        .header-logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .header-logo img.logo-icon {
+            width: 55px;
+            height: 55px;
+        }
+
+        .header-logo img.logo-text-img {
+            height: 40px;
+            width: auto;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 50px;
+        }
+
+        .nav-menu li a {
+            font-weight: bold;
+            font-size: 18px;
+            transition: color 0.3s;
+        }
+
+        .nav-menu li a:hover {
+            color: #2E7D32;
+        }
+
+        header.sticky-header .nav-menu li a {
+            color: #fff;
+        }
+
+        header.sticky-header .nav-menu li a:hover {
+            color: #fff;
+            text-decoration: underline;
+        }
+
+        /* [메인 배너] (여백 없이 전체 화면) */
         .hero {
-            height: 500px; position: relative; overflow: hidden; margin-top: 70px; /* 헤더 높이만큼 뗌 */
+            height: 650px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
+
         .hero-slider {
-            width: 300%; height: 100%; display: flex;
-            animation: slider 15s infinite; /* 15초마다 한 바퀴 */
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 300%;
+            height: 100%;
+            display: flex;
+            animation: slider 15s infinite;
+            z-index: 1;
         }
+
         .hero-slide {
-            width: calc(100% / 3); height: 100%;
-            background-repeat: no-repeat; background-size: cover; background-position: center;
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            color: white; text-align: center;
+            width: calc(100% / 3);
+            height: 100%;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
         }
-        /* 각 슬라이드 배경 이미지 설정. 사용자가 이미지를 준비해야 합니다. */
-        .slide1 { background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('images/tree_banner1.jpg'); }
-        .slide2 { background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('images/tree_banner2.jpg'); }
-        .slide3 { background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('images/tree_banner3.jpg'); }
-        
-        .hero h1 { font-size: 42px; margin-bottom: 15px; color: #fff; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
-        .hero p { font-size: 20px; font-weight: 300; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); }
+
+        .slide1 {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('images/banner1.jpg');
+        }
+
+        .slide2 {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('images/banner2.jpg');
+        }
+
+        .slide3 {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('images/banner3.jpg');
+        }
 
         @keyframes slider {
-            0%, 33% { transform: translateX(0); }
-            33%, 66% { transform: translateX(-33.33%); }
-            66%, 100% { transform: translateX(-66.66%); }
+
+            0%,
+            28% {
+                transform: translateX(0);
+            }
+
+            33%,
+            61% {
+                transform: translateX(-33.33%);
+            }
+
+            66%,
+            95% {
+                transform: translateX(-66.66%);
+            }
+
+            100% {
+                transform: translateX(0);
+            }
         }
 
-        /* [6] 병원 소개 (구글 검색 정보 참고) */
-        .about { padding: 80px 50px; text-align: center; background-color: #fff; }
-        .about-title { font-size: 28px; margin-bottom: 20px; color: #222; }
-        .about-content { font-size: 16px; line-height: 1.8; color: #666; max-width: 800px; margin: 0 auto; }
-        .about-representative { font-weight: bold; color: #333; margin-top: 15px; }
+        /* 배너 텍스트 무조건 흰색 고정 */
+        .hero-text {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: #ffffff !important;
+        }
 
-        /* [7] 주요 진료 안내 (기존 유지, 아이콘 추가) */
-        .services { padding: 80px 50px; text-align: center; background-color: #f8f9fa; }
-        .section-title { font-size: 28px; margin-bottom: 50px; color: #222; }
-        .service-grid { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; }
+        .hero-text h1,
+        .hero-text span,
+        .hero-text p,
+        .hero-text strong {
+            color: #ffffff !important;
+        }
+
+        .hero-text h1 {
+            font-size: 48px;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7);
+            font-weight: 300;
+            line-height: 1.3;
+        }
+
+        .hero-text h1 span {
+            font-size: 1.25em;
+            font-weight: bold;
+        }
+
+        .hero-text p {
+            font-size: 22px;
+            font-weight: 300;
+            text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7);
+            line-height: 1.6;
+        }
+
+        .hero-text p strong {
+            font-weight: bold;
+            font-size: 26px;
+        }
+
+        /* [병원 소개 - 마우스 오버 줌인 효과] */
+        .about {
+            padding: 120px 0;
+            background-color: #fff;
+        }
+
+        .about .inner {
+            display: flex;
+            align-items: center;
+            gap: 60px;
+        }
+
+        /* 1. 사진을 담는 액자 (넘치는 부분을 잘라냄) */
+        .about-img-wrapper {
+            width: 45%;
+            height: 450px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            /* 사진이 확대될 때 액자 밖으로 튀어나오지 않게 함 */
+        }
+
+        /* 2. 실제 사진 (평소엔 가만히 있음) */
+        .about-img {
+            width: 100%;
+            height: 100%;
+            background-image: url('images/about/20250927_100722.jpg');
+            /* 가장 잘 나온 대표 사진 1장 지정 */
+            background-size: cover;
+            background-position: center;
+            /* 0.5초 동안 부드럽게 커지는 마법의 코드 */
+            transition: transform 0.5s ease;
+        }
+
+        /* 3. 액자에 마우스를 올렸을 때 사진이 5% 확대됨 */
+        .about-img-wrapper:hover .about-img {
+            transform: scale(1.05);
+        }
+
+        /* 텍스트 영역 스타일 (이전과 동일) */
+        .about-text-container {
+            width: 55%;
+            text-align: left;
+        }
+
+        .about-title {
+            font-size: 32px;
+            margin-bottom: 30px;
+            color: #222;
+            font-weight: 700;
+        }
+
+        .about-intro {
+            font-size: 24px;
+            font-weight: 300;
+            margin-bottom: 30px;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .about-intro strong {
+            font-size: 28px;
+            font-weight: 700;
+            color: #2E7D32;
+            border-bottom: 2px solid #2E7D32;
+            padding-bottom: 5px;
+        }
+
+        .about-desc {
+            font-size: 18px;
+            font-weight: 400;
+            color: #555;
+            margin-bottom: 40px;
+            line-height: 2.0;
+        }
+
+        .about-desc .highlight {
+            color: #588e5b;
+            font-weight: 600;
+        }
+
+        .about-representative {
+            font-weight: 600;
+            color: #333;
+            font-size: 16px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+            width: 150px;
+        }
+
+        /* [섹션 공통] */
+        .section-title {
+            font-size: 32px;
+            margin-bottom: 50px;
+            color: #222;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        /* [주요 진료 안내 - 3x2 그리드 및 상세 리스트 스타일 적용] */
+        .services {
+            padding: 100px 0;
+            background-color: #f8f9fa;
+        }
+
+        .service-grid {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        /* 3칸으로 꽉 차게 배치되도록 너비 조정 (33.333%) */
         .service-box {
-            background: #fff; border: 1px solid #eaeaea; border-radius: 8px;
-            padding: 40px 20px; width: 220px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+            background: #fff;
+            border: 1px solid #eaeaea;
+            border-radius: 12px;
+            padding: 40px 30px;
+            width: calc(33.333% - 20px);
+            min-width: 300px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
             transition: transform 0.3s ease, border-color 0.3s ease;
+            box-sizing: border-box;
+            text-align: left;
+            /* 글씨를 왼쪽 정렬로 변경 */
         }
-        .service-box:hover { transform: translateY(-10px); border-color: #2E7D32; }
-        /* [8] 서비스 박스 내부 아이콘 배치 */
-        .service-icon { width: 40px; height: 40px; margin-bottom: 20px; }
-        .service-box h3 { font-size: 20px; color: #2E7D32; margin-bottom: 15px; }
-        .service-box p { font-size: 15px; color: #666; line-height: 1.5; }
 
-        /* [9] 최근 소식 (새로운 섹션) */
-        .news { padding: 80px 50px; text-align: center; background-color: #fff; }
-        .news-list { text-align: left; max-width: 800px; margin: 0 auto; font-size: 16px; }
-        .news-list li { padding: 15px 0; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; }
-        .news-list li:last-child { border-bottom: none; }
-        .news-date { color: #888; font-size: 14px; }
-        .news-title { font-weight: bold; cursor: pointer; }
-        .news-title:hover { text-decoration: underline; }
-
-        /* [10] 사진 갤러리 (새로운 섹션) */
-        .gallery { padding: 80px 50px; text-align: center; background-color: #f8f9fa; }
-        .gallery-grid { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; }
-        .gallery-item { width: 300px; text-align: left; }
-        /* 갤러리 이미지. 사용자가 이미지를 준비해야 합니다. */
-        .gallery-img { width: 100%; height: 200px; background-color: #ddd; border-radius: 8px; margin-bottom: 15px; object-fit: cover; }
-        .gallery-title { font-weight: bold; font-size: 18px; margin-bottom: 8px; display: block;}
-        .gallery-title:hover { text-decoration: underline; }
-
-        /* [11] 오시는 길 (구글 검색 지도 참고) */
-        .contact { padding: 80px 50px; text-align: center; background-color: #fff; }
-        .contact-info { display: flex; justify-content: center; gap: 50px; flex-wrap: wrap; text-align: left; margin-top: 40px;}
-        .contact-address, .contact-phone { display: flex; align-items: center; gap: 10px; font-size: 16px; }
-        .contact-address img, .contact-phone img { width: 25px; height: 25px; }
-        /* [12] 지도 이미지/embed 배치 */
-        /* 실제 지도 embed 코드를 사용합니다. 사용자가 실제 주소를 검색하여 embed 코드를 교체할 수 있습니다. */
-        .map-container { 
-            width: 100%; max-width: 1000px; height: 400px; margin: 40px auto 0;
-            border-radius: 8px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        .service-box:hover {
+            transform: translateY(-10px);
+            border-color: #2E7D32;
+            box-shadow: 0 10px 25px rgba(46, 125, 50, 0.1);
         }
-        .map-container iframe { width: 100%; height: 100%; border: none; }
 
-        /* [13] 하단 정보 (Footer) (구글 검색 정보로 업데이트) */
-        footer { background-color: #2b2b2b; color: #aaa; padding: 40px 50px; text-align: center; font-size: 14px; line-height: 1.6; }
-        .footer-top { display: flex; justify-content: center; align-items: center; gap: 10px; margin-bottom: 20px; }
-        .footer-top img { width: 30px; height: 30px; } /* [14] 푸터 내부 아이콘 배치 */
-        .footer-logo { font-size: 20px; font-weight: bold; color: #4CAF50; }
-        footer span { margin: 0 10px; color: #555; }
+        .service-icon-wrapper {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .service-icon {
+            width: 48px;
+            height: 48px;
+            stroke: #2E7D32;
+            fill: none;
+            stroke-width: 1.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .service-box h3 {
+            font-size: 22px;
+            color: #222;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: 700;
+            border-bottom: 2px solid #e8f5e9;
+            padding-bottom: 15px;
+        }
+
+        /* 팸플릿 리스트 스타일 */
+        .service-list {
+            padding-left: 20px;
+            margin: 0;
+        }
+
+        .service-list li {
+            font-size: 15px;
+            color: #555;
+            margin-bottom: 10px;
+            line-height: 1.5;
+            list-style-type: square;
+        }
+
+        .service-list li::marker {
+            color: #2E7D32;
+        }
+
+        /* 글머리 기호 색상을 초록색으로 */
+
+        /* [최근 소식] */
+        .news {
+            padding: 100px 0;
+            background-color: #fff;
+        }
+
+        .news-list {
+            text-align: left;
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: 16px;
+        }
+
+        .news-list li {
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .news-list li:last-child {
+            border-bottom: none;
+        }
+
+        .news-date {
+            color: #888;
+            font-size: 14px;
+        }
+
+        .news-title {
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .news-title:hover {
+            text-decoration: underline;
+            color: #2E7D32;
+        }
+
+        /* [사진 갤러리 - 3x2 배열 완벽 수정] */
+        .gallery {
+            padding: 100px 0;
+            background-color: #f8f9fa;
+        }
+
+        .gallery .inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        /* 사진 사이 간격을 30px로 설정 */
+        .gallery-grid {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        /* 3칸 배치를 위한 마법의 계산식: (100% - (간격개수 * 간격크기)) / 3 */
+        .gallery-item {
+            /* 한 줄에 사진 3개, 간격 2개가 들어가므로 (100% - (2 * 30px)) / 3 입니다. */
+            width: calc((100% - 60px) / 3);
+            /* 모니터가 너무 작으면 자동으로 1줄로 떨어지게 설정 (스마트폰 대응) */
+            min-width: 280px;
+            text-align: left;
+            border: 1px solid #eaeaea;
+            border-radius: 12px;
+            background-color: #fff;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+            transition: transform 0.3s ease;
+            /* 테두리까지 포함해서 크기를 계산하도록 설정 */
+            box-sizing: border-box;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.06);
+        }
+
+        /* 사례 이미지 비율 고정 (4:3) 및 찌그러짐 방지 */
+        .gallery-img-wrapper {
+            position: relative;
+            width: 100%;
+            padding-top: 75%;
+            overflow: hidden;
+        }
+
+        .gallery-img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .gallery-text-wrapper {
+            padding: 20px;
+        }
+
+        .gallery-title {
+            font-weight: bold;
+            font-size: 18px;
+            color: #222;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .gallery-item:hover .gallery-title {
+            color: #2E7D32;
+            text-decoration: underline;
+        }
+
+        /* [오시는 길] */
+        .contact {
+            padding: 100px 0;
+            background-color: #fff;
+            text-align: center;
+        }
+
+        /* 지도 링크 버튼 스타일 */
+        .map-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .map-btn {
+            padding: 14px 28px;
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #fff !important;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .map-btn.naver {
+            background-color: #03c75a;
+        }
+
+        .map-btn.naver:hover {
+            background-color: #02b350;
+        }
+
+        .map-btn.kakao {
+            background-color: #fae100;
+            color: #333 !important;
+        }
+
+        .map-btn.kakao:hover {
+            background-color: #e5cd00;
+        }
+
+        .map-btn.google {
+            background-color: #4285F4;
+        }
+
+        .map-btn.google:hover {
+            background-color: #357ae8;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            flex-wrap: wrap;
+            text-align: left;
+            margin-top: 20px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 16px;
+            color: #555;
+        }
+
+        .contact-item svg {
+            width: 24px;
+            height: 24px;
+            stroke: #2E7D32;
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        /* [하단 정보 (Footer)] */
+        footer {
+            background-color: #2b2b2b;
+            color: #aaa;
+            padding: 60px 0;
+            font-size: 15px;
+            line-height: 2.0;
+        }
+
+        footer .inner {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .footer-top {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            border-bottom: 1px solid #444;
+            padding-bottom: 20px;
+        }
+
+        .footer-top img {
+            width: 45px;
+            height: 45px;
+        }
+
+        .footer-logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        .footer-details {
+            font-weight: 300;
+            margin-bottom: 20px;
+            color: #ddd;
+        }
+
+        .footer-details span {
+            margin-right: 20px;
+            display: inline-block;
+        }
+
+        .footer-details span strong {
+            font-weight: 600;
+            color: #ddd;
+        }
+
+        .footer-contact-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .footer-contact-row svg {
+            width: 18px;
+            height: 18px;
+            stroke: #888;
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .footer-contact-row strong {
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .copyright {
+            font-size: 13px;
+            color: #777;
+            margin-top: 40px;
+            text-align: center;
+            border-top: 1px solid #444;
+            padding-top: 20px;
+        }
     </style>
 </head>
+
 <body>
 
-    <header>
-        <div class="header-logo">
-            <img src="images/icon.png" alt="사계절나무병원 로고 아이콘">
-            사계절나무병원
+    <header id="header">
+        <div class="inner">
+            <div class="header-logo">
+                <img src="images/icon.png" class="logo-icon" alt="사계절나무병원 로고 아이콘">
+                <img src="images/logo_text.png" class="logo-text-img" alt="사계절나무병원 로고 텍스트">
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#about">병원소개</a></li>
+                <li><a href="#services">진료안내</a></li>
+                <li><a href="#news">최근소식</a></li>
+                <li><a href="#gallery">치료사례</a></li>
+                <li><a href="#contact">오시는길</a></li>
+            </ul>
         </div>
-        <ul class="nav-menu">
-            <li><a href="#about">병원소개</a></li>
-            <li><a href="#services">진료안내</a></li>
-            <li><a href="#news">최근소식</a></li>
-            <li><a href="#gallery">치료사례</a></li>
-            <li><a href="#contact">오시는길</a></li>
-        </ul>
     </header>
 
     <section id="hero" class="hero">
         <div class="hero-slider">
-            <div class="hero-slide slide1">
-                <h1>나무의 아픔을 치유합니다</h1>
-                <p>정확한 진단과 올바른 처방, 사계절나무병원이 함께합니다.</p>
-            </div>
-            <div class="hero-slide slide2">
-                <h1>건강한 수목, 아름다운 조경</h1>
-                <p>전문적인 관리로 더 푸르고 아름다운 공간을 만듭니다.</p>
-            </div>
-            <div class="hero-slide slide3">
-                <h1>보호수 및 노거수 특별 관리</h1>
-                <p>역사적 가치를 지닌 나무를 정성으로 지킵니다.</p>
-            </div>
+            <div class="hero-slide slide1"></div>
+            <div class="hero-slide slide2"></div>
+            <div class="hero-slide slide3"></div>
+        </div>
+        <div class="hero-text">
+            <h1><span>자연</span>과 <span>사람</span>의<br><span>건강한 동행</span></h1>
+            <p>우리의 나무가 아플 때에는<br><strong>(주)사계절나무병원</strong>을 찾아주세요</p>
         </div>
     </section>
 
     <section id="about" class="about">
-        <h2 class="about-title">병원 소개</h2>
-        <div class="about-content">
-            <p>저희 사계절나무병원은 다년간의 현장 경험과 전문 지식을 바탕으로 수목의 정밀 진단, 병해충 방제, 수목 외과수술 등 종합적인 수목 치료 서비스를 제공합니다. 나무의 건강을 최우선으로 생각하며, 최신 기기와 친환경적인 처방을 통해 나무의 생명력을 회복시키고 아름다운 조경 공간을 지속 가능하게 관리합니다.</p>
-            <p class="about-representative">대표자 : 송재홍</p>
+        <div class="inner">
+
+            <div class="about-img-wrapper">
+                <div class="about-img"></div>
+            </div>
+
+            <div class="about-text-container">
+                <h2 class="about-title" style="text-align: left; margin-bottom: 20px;">병원 소개</h2>
+                <p class="about-intro">
+                    우리의 나무가 아플 때에는<br>
+                    <strong>(주)사계절나무병원</strong>을 찾아주세요
+                </p>
+                <p class="about-desc">
+                    <span class="highlight">(주)사계절나무병원</span>은<br>
+                    나무의사와 수목치료기술자가<br>
+                    생활권 수목을 진단하고 치료합니다.<br><br>
+                    아파트 · 학교 · 회사 · 공공시설 등<br>
+                    생활권 수목에서 발생하는 각종 병해충의<br>
+                    정확한 진단과 방제는 물론<br>
+                    보호수의 정비 · 외과수술 · 수세회복 등<br>
+                    수목의 건강을 지속적으로 관리하는<br>
+                    <strong>나무전문병원</strong>입니다.
+                </p>
+                <p class="about-representative">대표자 : 송재홍</p>
+            </div>
         </div>
     </section>
 
     <section id="services" class="services">
-        <h2 class="section-title">주요 진료 안내</h2>
-        <div class="service-grid">
-            <div class="service-box">
-                <img src="images/icon.png" class="service-icon" alt="수목 진단 아이콘">
-                <h3>수목 진단</h3>
-                <p>정밀한 기기를 통한<br>정확한 상태 파악</p>
-            </div>
-            <div class="service-box">
-                <img src="images/icon.png" class="service-icon" alt="병해충 방제 아이콘">
-                <h3>병해충 방제</h3>
-                <p>수목 상태에 따른<br>맞춤형 약제 처방 및 치료</p>
-            </div>
-            <div class="service-box">
-                <img src="images/icon.png" class="service-icon" alt="수목 외과수술 아이콘">
-                <h3>수목 외과수술</h3>
-                <p>부패부 제거 및 살균,<br>인공수피 처리</p>
-            </div>
-            <div class="service-box">
-                <img src="images/icon.png" class="service-icon" alt="보호수 관리 아이콘">
-                <h3>보호수 관리</h3>
-                <p>역사적 가치가 있는<br>노거수 및 보호수 특별 관리</p>
+        <div class="inner">
+            <h2 class="section-title">주요 진료 안내</h2>
+            <div class="service-grid">
+
+                <div class="service-box">
+                    <div class="service-icon-wrapper">
+                        <svg class="service-icon" viewBox="0 0 24 24">
+                            <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
+                            <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
+                            <path d="M9 14h6"></path>
+                            <path d="M9 18h6"></path>
+                            <path d="M12 10v4"></path>
+                        </svg>
+                    </div>
+                    <h3>수목진단 및 처방</h3>
+                    <ul class="service-list">
+                        <li>수목 전문 진단장비 활용</li>
+                        <li>수목 생육상태 정밀진단</li>
+                        <li>고사 · 쇠약 원인 분석</li>
+                        <li>수간, 수관, 토양, 뿌리 종합 점검</li>
+                        <li>병해 · 생리장해 진단</li>
+                        <li>처방전 발급 및 직접 방제</li>
+                    </ul>
+                </div>
+
+                <div class="service-box">
+                    <div class="service-icon-wrapper">
+                        <svg class="service-icon" viewBox="0 0 24 24">
+                            <path
+                                d="M4.8 2.3A.3.3 0 1 0 5 2H4a2 2 0 0 0-2 2v5a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6V4a2 2 0 0 0-2-2h-1a.2.2 0 1 0 .3.3">
+                            </path>
+                            <path d="M8 15v1a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6v-4"></path>
+                            <circle cx="20" cy="10" r="2"></circle>
+                        </svg>
+                    </div>
+                    <h3>병해충 방제</h3>
+                    <ul class="service-list">
+                        <li>나무의사의 정확한 진단</li>
+                        <li>병해충별 원인분석 후 처방 방제</li>
+                        <li>수목별, 계절별 맞춤 방제</li>
+                        <li>인체 · 환경에 안전한 친환경 방제</li>
+                        <li>예방 중심의 지속 관리</li>
+                        <li>시기별 연간 관리</li>
+                    </ul>
+                </div>
+
+                <div class="service-box">
+                    <div class="service-icon-wrapper">
+                        <svg class="service-icon" viewBox="0 0 24 24">
+                            <path d="M12 22v-8"></path>
+                            <path d="M9 14c-3-2-4-5-4-8a7 7 0 0 1 14 0c0 3-1 6-4 8"></path>
+                            <path d="M12 4v4"></path>
+                            <path d="M10 6h4"></path>
+                        </svg>
+                    </div>
+                    <h3>외과수술</h3>
+                    <ul class="service-list">
+                        <li>부패 · 공동 제거 및 소독 · 치료</li>
+                        <li>인공 수피작업</li>
+                        <li>상처 보호처리 및 구조 안정화</li>
+                        <li>보호수 정비사업</li>
+                        <li>지지대 설치</li>
+                        <li>쇠조임, 당김줄, 줄당김 설치</li>
+                    </ul>
+                </div>
+
+                <div class="service-box">
+                    <div class="service-icon-wrapper">
+                        <svg class="service-icon" viewBox="0 0 24 24">
+                            <path d="M12 2v20"></path>
+                            <rect x="9" y="4" width="6" height="8" rx="1"></rect>
+                            <path d="M12 12v3"></path>
+                            <path d="M9 8h6"></path>
+                            <circle cx="12" cy="17" r="1.5"></circle>
+                        </svg>
+                    </div>
+                    <h3>수세회복</h3>
+                    <ul class="service-list">
+                        <li>쇠약 · 고사위험 수목 회복 집중 관리</li>
+                        <li>숨틀(유공관) 설치</li>
+                        <li>토양개량 / 뿌리활성화</li>
+                        <li>수관솎음 및 통기성 개선</li>
+                        <li>수간주사 · 영양공급 및 생리기능회복</li>
+                        <li>장기 관리 세칙 수립</li>
+                    </ul>
+                </div>
+
+                <div class="service-box">
+                    <div class="service-icon-wrapper">
+                        <svg class="service-icon" viewBox="0 0 24 24">
+                            <path d="M2 22L2 13c0-2 3-4 3-4"></path>
+                            <path d="M12 22L12 8c0-3 5-6 5-6"></path>
+                            <path d="M22 22L22 15c0-2-3-4-3-4"></path>
+                            <path d="M12 14c-2 0-4 2-4 4v4"></path>
+                        </svg>
+                    </div>
+                    <h3>잔디관리</h3>
+                    <ul class="service-list">
+                        <li>잔디 병해충 진단 및 방제</li>
+                        <li>잡초관리</li>
+                        <li>공원, 운동장, 골프장, 조경지</li>
+                        <li>약해 없는 약제 사용 및 추천</li>
+                    </ul>
+                </div>
+
+                <div class="service-box">
+                    <div class="service-icon-wrapper">
+                        <svg class="service-icon" viewBox="0 0 24 24">
+                            <rect x="3" y="8" width="18" height="12" rx="2"></rect>
+                            <path d="M8 8V6a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                            <path d="M12 12v4"></path>
+                            <path d="M10 14h4"></path>
+                        </svg>
+                    </div>
+                    <h3>수목의약품(농약)판매</h3>
+                    <ul class="service-list">
+                        <li>수목용 농약 전문 판매</li>
+                        <li>살충제, 살균제, 제초제</li>
+                        <li>생장조정제, 영양제, 비료</li>
+                        <li>수간주사제</li>
+                        <li>병해충별 약제 및 전문가 상담</li>
+                    </ul>
+                </div>
+
             </div>
         </div>
     </section>
 
     <section id="news" class="news">
-        <h2 class="section-title">최근 소식</h2>
-        <ul class="news-list">
-            <li>
-                <span class="news-title">2026년도 상반기 보호수 정밀 진단 사업 완료</span>
-                <span class="news-date">2026.04.10</span>
-            </li>
-            <li>
-                <span class="news-title">2026년 하반기 수목 병해충 집중 방제 실시 안내</span>
-                <span class="news-date">2026.03.25</span>
-            </li>
-            <li>
-                <span class="news-title">병원 웹사이트 개편 및 모바일 앱 출시</span>
-                <span class="news-date">2026.03.10</span>
-            </li>
-            <li>
-                <span class="news-title">소나무 재선충병 예방 시공 기술 세미나 참석</span>
-                <span class="news-date">2026.02.20</span>
-            </li>
-        </ul>
+        <div class="inner">
+            <h2 class="section-title">최근 소식</h2>
+            <ul class="news-list">
+                <li><span class="news-title">2026년도 상반기 보호수 정밀 진단 사업 완료</span><span class="news-date">2026.04.10</span>
+                </li>
+                <li><span class="news-title">2026년 하반기 수목 병해충 집중 방제 실시 안내</span><span
+                        class="news-date">2026.03.25</span></li>
+                <li><span class="news-title">병원 웹사이트 개편 및 모바일 앱 출시 안내</span><span class="news-date">2026.03.10</span>
+                </li>
+                <li><span class="news-title">소나무 재선충병 예방 시공 기술 세미나 참석</span><span class="news-date">2026.02.20</span>
+                </li>
+            </ul>
+        </div>
     </section>
 
     <section id="gallery" class="gallery">
-        <h2 class="section-title">치료 사례 갤러리</h2>
-        <div class="gallery-grid">
-            <div class="gallery-item">
-                <img src="https://via.placeholder.com/300x200?text=Case+1" class="gallery-img" alt="치료사례1">
-                <a href="#" class="gallery-title">소나무 재선충병 예방주사 시공</a>
-            </div>
-            <div class="gallery-item">
-                <img src="https://via.placeholder.com/300x200?text=Case+2" class="gallery-img" alt="치료사례2">
-                <a href="#" class="gallery-title">보호수 느티나무 외과수술 전후</a>
-            </div>
-            <div class="gallery-item">
-                <img src="https://via.placeholder.com/300x200?text=Case+3" class="gallery-img" alt="치료사례3">
-                <a href="#" class="gallery-title">아파트 단지 조경수 수형 조절</a>
+        <div class="inner">
+            <h2 class="section-title">치료 사례 갤러리</h2>
+            <div class="gallery-grid">
+
+                <div class="gallery-item">
+                    <div class="gallery-img-wrapper">
+                        <img src="images/gallery_1.jpg" class="gallery-img" alt="피쿠스 정밀진단 사례">
+                    </div>
+                    <div class="gallery-text-wrapper">
+                        <a href="블로그링크_여기에_입력" target="_blank" class="gallery-title">피쿠스 정밀진단 사례</a>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <div class="gallery-img-wrapper">
+                        <img src="images/gallery_2.jpg" class="gallery-img" alt="외과수술 사례">
+                    </div>
+                    <div class="gallery-text-wrapper">
+                        <a href="블로그링크_여기에_입력" target="_blank" class="gallery-title">외과수술 사례 (전/후)</a>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <div class="gallery-img-wrapper">
+                        <img src="images/gallery_3.jpg" class="gallery-img" alt="수간주사 시공 사례">
+                    </div>
+                    <div class="gallery-text-wrapper">
+                        <a href="블로그링크_여기에_입력" target="_blank" class="gallery-title">수간주사 시공 사례</a>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <div class="gallery-img-wrapper">
+                        <img src="images/gallery_4.jpg" class="gallery-img" alt="드론 방제 사례">
+                    </div>
+                    <div class="gallery-text-wrapper">
+                        <a href="블로그링크_여기에_입력" target="_blank" class="gallery-title">드론 방제 사례</a>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <div class="gallery-img-wrapper">
+                        <img src="images/gallery_5.jpg" class="gallery-img" alt="잔디관리 및 제초제 피해 회복 사례">
+                    </div>
+                    <div class="gallery-text-wrapper">
+                        <a href="블로그링크_여기에_입력" target="_blank" class="gallery-title">잔디관리 및 제초제 피해 회복 사례</a>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <div class="gallery-img-wrapper">
+                        <img src="images/gallery_6.jpg" class="gallery-img" alt="소나무 재선충병 예방 사례">
+                    </div>
+                    <div class="gallery-text-wrapper">
+                        <a href="블로그링크_여기에_입력" target="_blank" class="gallery-title">소나무 재선충병 예방 사례</a>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
 
     <section id="contact" class="contact">
-        <h2 class="section-title">오시는 길</h2>
-        <div class="contact-info">
-            <div class="contact-address">
-                <img src="images/icon.png" alt="주소 아이콘">
-                경기도 화성시 남양읍 남양성지로 33-33 (예시 주소)
+        <div class="inner">
+            <h2 class="section-title">오시는 길</h2>
+
+            <div class="map-links">
+                <a href="https://map.naver.com/p/search/경북안동시전거리5길90" target="_blank" class="map-btn naver">네이버 지도로 보기
+                    ↗</a>
+                <a href="https://map.kakao.com/link/search/경북 안동시 전거리 5길 90" target="_blank" class="map-btn kakao">카카오
+                    지도로 보기 ↗</a>
+                <a href="https://www.google.com/maps/search/경북+안동시+전거리+5길+90" target="_blank" class="map-btn google">구글
+                    지도로 보기 ↗</a>
             </div>
-            <div class="contact-phone">
-                <img src="images/icon.png" alt="전화 아이콘">
-                031-356-XXXX (예시 전화번호)
+
+            <div class="contact-info">
+                <div class="contact-item">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                        <circle cx="12" cy="10" r="3"></circle>
+                    </svg>
+                    경북 안동시 전거리 5길 90, 102호
+                </div>
+                <div class="contact-item">
+                    <svg viewBox="0 0 24 24">
+                        <path
+                            d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z">
+                        </path>
+                    </svg>
+                    T 054-823-1609 <span>|</span> M 010-4126-1609
+                </div>
             </div>
-        </div>
-        <div class="map-container">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12718.24354316922!2d126.81134017684618!3d37.21481180295193!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357b98a09849504f%3A0xc47e45e771e86a51!2z6rK96riw64-EIO2ZlOyEsey4nCDrgqjsp4HsnY0g64Ko7JaR7ISx7KeA66GcIDMzLTMz!5e0!3m2!1sko!2skr!4v1713175860268!5m2!1sko!2skr" allowfullscreen="" loading="lazy"></iframe>
         </div>
     </section>
 
     <footer>
-        <div class="footer-top">
-            <img src="images/icon.png" alt="사계절나무병원 로고 아이콘">
-            <div class="footer-logo">사계절나무병원</div>
+        <div class="inner">
+            <div class="footer-top">
+                <img src="images/icon.png" alt="사계절나무병원 로고 아이콘">
+                <div class="footer-logo">(주)사계절나무병원</div>
+            </div>
+
+            <div class="footer-details">
+                <span>나무병원 등록번호 | <strong>T-경북 2025-002</strong></span>
+                <span>농약판매업 등록번호 | <strong>제 11-4-163호</strong></span>
+                <span>나무의사 자격번호 | <strong>23-1-01-0331</strong></span>
+            </div>
+
+            <div class="footer-contact-row">
+                <svg viewBox="0 0 24 24">
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                    <circle cx="12" cy="10" r="3"></circle>
+                </svg>
+                경북 안동시 전거리 5길 90, 102호
+            </div>
+
+            <div class="footer-contact-row">
+                <svg viewBox="0 0 24 24">
+                    <path
+                        d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z">
+                    </path>
+                </svg>
+                T <strong>054-823-1609</strong>  |  M <strong>010-4126-1609</strong>
+            </div>
+
+            <div class="footer-contact-row">
+                <svg viewBox="0 0 24 24">
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                    <polyline points="22,6 12,13 2,6"></polyline>
+                </svg>
+                이메일 <strong>4seasons1609@naver.com</strong>
+            </div>
+
+            <p class="copyright">© 2026 4Seasons Tree Hospital. All rights reserved.</p>
         </div>
-        <p>
-            사계절나무병원 <span>|</span> 대표자 : 송재홍 <span>|</span> 사업자등록번호 : 000-00-00000<br>
-            경기도 화성시 남양읍 남양성지로 33-33 (예시 주소) <span>|</span> 대표전화 : 031-356-XXXX (예시 전화번호) <span>|</span> 이메일 : treehosp@naver.com (예시 이메일)
-        </p>
-        <p style="margin-top: 15px; font-size: 12px;">&copy; 2026 4Seasons Tree Hospital. All rights reserved.</p>
     </footer>
 
+    <script>
+        // 스티키 헤더
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', function () {
+            if (window.scrollY > 50) header.classList.add('sticky-header');
+            else header.classList.remove('sticky-header');
+        });
+    </script>
+
 </body>
+
 </html>
